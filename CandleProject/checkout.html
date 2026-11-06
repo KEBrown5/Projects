@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>EverGlow Candles</title>
+        <meta charset = "utf-8">
+        <meta name= "viewport" content="width=device-width, initial-scale=1">
+        <meta name = "description" content = "E-commerce candle shop">
+        <meta name = "author" content = "Kyle Brown">
+        <meta name = "keywords" content = "Candle, buy, shop, scent, fragrence">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!--Bootstrap-->
+        <link rel = "stylesheet" href = "styles.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Google Fonts-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class = "container">
+            <!-- Top Header -->
+            <header class="py-3">
+                <div class = "header-image"></div>
+            </header>
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+                <div class="container justify-content-center">
+                    <div class="navbar">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <main>
+                <!-- Content Section -->
+                <div class="container my-5">
+                    <div class="row text-center">
+                        <h1>Checkout</h1>
+                        <table class = "table custom-table my-5"> <!-- This will hopefully be updated later to actually display items put into the cart via-->
+                            <thead>                                <!-- The products page, but for now it is a static preview of what it may look like -->
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Item Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id = "checkoutTableBody">
+                            
+
+                                <!-- <tr>
+                                    <td>Candle 1</td>
+                                    <td>$5.00</td>
+                                    <td>1</td>
+                                    <td>$5.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Candle 3</td>
+                                    <td>$8.00</td>
+                                    <td>3</td>
+                                    <td>$24.00</td>
+                                </tr>
+                                <tr>
+                                    <td>Candle 6</td>
+                                    <td>$6.00</td>
+                                    <td>2</td>
+                                    <td>$12.00</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+
+                    <div class = "row text-center">
+                        <div class = "col-md-6">
+                            <h2>Total Price</h2>
+                            <p style = "font-size: 24px;" id = "grandTotal">$0.0</p>
+                        </div>
+
+                        <div class = "col-md-6">
+                            <button class = "btn btn-candle btn-candle-primary">Pay Now</button>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>EverGlow Candles</p>
+            <p>223 Richwine Road, Carlisle PA</p>
+        </footer>
+        
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const tableBody = document.getElementById("checkoutTableBody");
+            const grandTotalEl = document.getElementById("grandTotal");
+
+            let grandTotal = 0;
+
+            if (cart.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                <td colspan="4" class="text-center">Your cart is empty.</td>
+                </tr>
+            `;
+            } else {
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                grandTotal += itemTotal;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${item.name}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td>${item.quantity}</td>
+                <td>$${itemTotal.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            grandTotalEl.textContent = `$${grandTotal.toFixed(2)}`;
+            }
+        </script>
+    </body>
+</html>
